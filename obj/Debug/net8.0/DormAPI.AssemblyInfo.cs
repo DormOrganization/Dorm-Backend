@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DormAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8e8461841a6efb5def7cca48ba972474b53682a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9a1b990a512de0fd1cc28128288ee527248317b")]
 [assembly: System.Reflection.AssemblyProductAttribute("DormAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DormAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
