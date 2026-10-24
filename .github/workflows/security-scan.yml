@@ -1,0 +1,44 @@
+name: Security & Quality Pipeline
+
+on:
+  push:
+    branches: [ "main", "master", "dev" ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  # Job 1: فحص Trivy للأسرار والمكتبات
+  trivy-security-scan:
+    name: Trivy SCA & Secrets Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy Vulnerability & Secret Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          severity: 'HIGH,CRITICAL'
+
+  # Job 2: فحص SonarCloud للـ Backend
+  sonarcloud-code-scan:
+    name: SonarCloud SAST Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=dormorganization
+            -Dsonar.projectKey=DormOrganization_Dorm-Backend
