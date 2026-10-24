@@ -12,3 +12,4 @@ namespace DormAPI.Models
         public string? RelationshipType { get; set; }
     }
 }
+// contact
