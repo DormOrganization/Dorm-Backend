@@ -1,0 +1,152 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\controllers\\dormcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:controllers\\dormcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\database\\ado\\common\\clsexternallayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:database\\ado\\common\\clsexternallayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\database\\ado\\repositories\\employeerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:database\\ado\\repositories\\employeerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\database\\ef\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:database\\ef\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|c:\\users\\kalum\\desktop\\dorm graduation project\\dorm-backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D1523B1-1759-456E-85E3-0906619B0535}|DormAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAMwDsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-03T10:16:21.882Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmployeeRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Database\\Ado\\Repositories\\EmployeeRepository.cs",
+              "RelativeDocumentMoniker": "Database\\Ado\\Repositories\\EmployeeRepository.cs",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Database\\Ado\\Repositories\\EmployeeRepository.cs",
+              "RelativeToolTip": "Database\\Ado\\Repositories\\EmployeeRepository.cs",
+              "ViewState": "AgIAAOYBAAAAAAAAAAAUwPwBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T15:53:04.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "clsExternalLayer.cs",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Database\\Ado\\Common\\clsExternalLayer.cs",
+              "RelativeDocumentMoniker": "Database\\Ado\\Common\\clsExternalLayer.cs",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Database\\Ado\\Common\\clsExternalLayer.cs",
+              "RelativeToolTip": "Database\\Ado\\Common\\clsExternalLayer.cs",
+              "ViewState": "AgIAAOgGAAAAAAAAAAAowE8HAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T15:51:07.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DormController.cs",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Controllers\\DormController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DormController.cs",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Controllers\\DormController.cs",
+              "RelativeToolTip": "Controllers\\DormController.cs",
+              "ViewState": "AgIAAHQEAAAAAAAAAAAhwKcEAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T15:44:42.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-10-21T07:51:20.683Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-10-21T07:42:04.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Database\\EF\\Repositories\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Database\\EF\\Repositories\\StudentRepository.cs",
+              "ToolTip": "C:\\Users\\kalum\\Desktop\\Dorm Graduation Project\\Dorm-Backend\\Database\\EF\\Repositories\\StudentRepository.cs",
+              "RelativeToolTip": "Database\\EF\\Repositories\\StudentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T13:00:26.225Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

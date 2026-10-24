@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "DormAPI.Controllers.ChatController",
+    "Method": "AskAi",
+    "RelativePath": "api/Chat/ask/function-calling",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "prompt",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.ChatController",
+    "Method": "GenerateSql",
+    "RelativePath": "api/Chat/ask/generate-sql",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "prompt",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DormAPI.Controllers.DocumentsController",
     "Method": "GetDocumentByPath",
     "RelativePath": "api/document/get",
@@ -9,6 +41,59 @@
     "Parameters": [
       {
         "Name": "studentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "documentName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.DocumentsController",
+    "Method": "GetAllDocumentByEmployeeId",
+    "RelativePath": "api/document/get/all/{employeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.DocumentsController",
+    "Method": "GetDocumentByPath",
+    "RelativePath": "api/document/get/document/path",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentPath",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.DocumentsController",
+    "Method": "GetEmployeeDocumentByPath",
+    "RelativePath": "api/document/get/employee/document",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
         "Type": "System.Int32",
         "IsRequired": false
       },
@@ -47,6 +132,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DormAPI.Controllers.DocumentsController",
+    "Method": "UploadEmployeeDocument",
+    "RelativePath": "api/document/upload/employee/document/{employeeId}/{fileName}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "employeeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "fileName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "AcceptLeave",
+    "RelativePath": "api/Employee/accept/leave/{leaveId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "leaveId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DormAPI.Controllers.EmployeeController",
     "Method": "AddEmployeeContract",
     "RelativePath": "api/Employee/add/contract",
@@ -73,6 +200,22 @@
       {
         "Name": "dto",
         "Type": "DormAPI.DTOs.AddEmployeeDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "RequestLeave",
+    "RelativePath": "api/Employee/add/leave",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DormAPI.DTOs.AddEmployeeLeaveDTO",
         "IsRequired": true
       }
     ],
@@ -147,6 +290,26 @@
   },
   {
     "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "GetShifts",
+    "RelativePath": "api/Employee/get/all/shifts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DormAPI.DTOs.ShiftDTO, DormAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
     "Method": "GetActiveEmployeeContract",
     "RelativePath": "api/Employee/get/contract/active/{employeeId}",
     "HttpMethod": "GET",
@@ -173,12 +336,102 @@
   },
   {
     "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "GetEmployeesStatisticsOverview",
+    "RelativePath": "api/Employee/get/employees/statistics/overview",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "GetLeaveTypes",
+    "RelativePath": "api/Employee/get/leave/types",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "GetEmployeeLeaves",
+    "RelativePath": "api/Employee/get/leaves/{employeeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "GetStatusTypes",
+    "RelativePath": "api/Employee/get/status/types",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "RefuseLeave",
+    "RelativePath": "api/Employee/refuse/leave/{leaveId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "leaveId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
     "Method": "GetTotalEmployee",
     "RelativePath": "api/Employee/total/employee",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.EmployeeController",
+    "Method": "UpdateEmployeeContract",
+    "RelativePath": "api/Employee/update/contract",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "DormAPI.DTOs.UpdateEmployeeContractDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -1116,6 +1369,36 @@
           "text/json"
         ],
         "StatusCode": 409
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "DormAPI.Controllers.DormController",
+    "Method": "GetAvailableRooms",
+    "RelativePath": "Dorm/room/available",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
       },
       {
         "Type": "System.Void",

@@ -1,25 +1,22 @@
 using DormAPI.Database;
+using DormAPI.Database.Ado.Common;
+using DormAPI.Database.Ado.Repositories;
+using DormAPI.Database.EF.Contexts;
+using DormAPI.Database.EF.Repositories;
+using DormAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using DormAPI.Database.EF.Contexts;
-using DormAPI.Database.Ado.Repositories;
-using DormAPI.Database.Ado.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 
 // 1. Read connection string and register DbContext with DI container 
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-//    .LogTo(Console.WriteLine, LogLevel.Information)
-//    .EnableSensitiveDataLogging()
-//);
-
-
-
-
-// Test 
+builder.Services.AddDbContext<DormContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .LogTo(Console.WriteLine, LogLevel.Information)
+    .EnableSensitiveDataLogging()
+);
 
 
 // Add services to the container.
@@ -33,6 +30,17 @@ builder.Services.AddAntiforgery();
 // Add clsExternalLayer to DI container
 builder.Services.AddScoped<clsExternalLayer>();
 builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<StudentRepository>();
+builder.Services.AddScoped<ChatBotRepository>();
+
+// 3. Register the Typed HttpClient for Ollama
+var ollamaBaseUrl = builder.Configuration["OllamaConfig:BaseUrl"];
+builder.Services.AddHttpClient<OllamaService>(client =>
+{
+    client.BaseAddress = new Uri(ollamaBaseUrl!);
+    client.Timeout = TimeSpan.FromMinutes(3); // Give the local AI time to generate
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

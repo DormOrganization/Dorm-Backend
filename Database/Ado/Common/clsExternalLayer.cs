@@ -299,6 +299,37 @@ namespace DormAPI.Database.Ado.Common
             }
         }
 
+        public bool UploadEmployeeFilePath(int employeeId, string filePath, string fileName, string? fileType)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SP_AddEmployeeDocumentPath", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@DocumentPath", filePath);
+                    command.Parameters.AddWithValue("@DocumentName", fileName);
+                    command.Parameters.AddWithValue("@DocumentType", fileType);
+                    command.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+                    int rowAffected = 0;
+                    try
+                    {
+                        connection.Open();
+
+                        rowAffected = command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    return rowAffected > 0;
+
+
+                }
+            }
+        }
         public List<Dictionary<string, dynamic>> GetAllStudentDocuments(int studentId)
         {
             using(SqlConnection connection = new SqlConnection(_connectionString))
@@ -346,6 +377,53 @@ namespace DormAPI.Database.Ado.Common
             }
         }
 
+        public List<Dictionary<string, dynamic>> GetAllEmployeeDocuments(int employeeId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SP_GetAllEmployeeDocuments", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    command.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+                    List<Dictionary<string, dynamic>> listDocumentsPath = new List<Dictionary<string, dynamic>>();
+
+                    try
+                    {
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var dict = new Dictionary<string, dynamic>();
+
+                                dict["DocumentPathID"] = reader[0];
+                                dict["DocumentPath"] = reader[1].ToString();
+                                dict["DocumentName"] = reader[2].ToString();
+                                dict["DocumentType"] = reader[3].ToString();
+                                dict["EmployeeID"] = reader[4];
+
+
+                                listDocumentsPath.Add(dict);
+
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+
+                    }
+
+                    return listDocumentsPath;
+                }
+
+
+            }
+        }
         public  async Task<(byte[], string, string)> GetDocumentByPathAsync(string path)
         {
             if(!File.Exists(path))
@@ -1579,8 +1657,11 @@ GROUP BY
             }
 
         }
-        
+
+
+        // ==========================        
         // Room Section/Operations
+        // =========================
         public bool AddRoom(Room room)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -1745,6 +1826,54 @@ GROUP BY
                     return listDict;
                 }
             }
+        }
+
+        public async Task<List<Dictionary<string, dynamic>>> GetAvailableRooms()
+        {
+
+            List<Dictionary<string, dynamic>> listAvailableRooms = new List<Dictionary<string, dynamic>>();
+
+            using (var connection = new SqlConnection(_connectionString)) {
+                using (var command = new SqlCommand("usp_GetAvailableRooms", connection))
+                {
+
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    try
+                    {
+
+                       
+
+                        await connection.OpenAsync();
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                Dictionary<string, dynamic> room = new Dictionary<string, dynamic>();
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    room[reader.GetName(i)] = reader.GetValue(i);
+                                }
+
+                               
+
+                                listAvailableRooms.Add(room);
+
+                            }
+                            
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error in GetEmployeesStatisticsOverview: {ex.Message}");
+                    }
+
+                    
+                }
+            }
+            return listAvailableRooms;
+
         }
 
         //------------------------------

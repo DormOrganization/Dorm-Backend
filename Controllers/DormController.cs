@@ -470,7 +470,7 @@ DOCUMENT TEXT:
 
                     stream = false
                 };
-
+                
                 var response = await client.PostAsJsonAsync(
                         "http://localhost:11434/api/generate",
 
@@ -915,7 +915,6 @@ DOCUMENT TEXT:
             }
         }
 
-        // Room Section
         
         [HttpGet("rooms/status/list")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -1062,6 +1061,10 @@ DOCUMENT TEXT:
             }
         }
 
+        // ===================================
+        //          Room Section 
+        // ===================================
+
         [HttpGet("floors-with-rooms/{buildingId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -1180,6 +1183,27 @@ DOCUMENT TEXT:
             if (isDeleted) return Ok("Room deleted successfully.");
             return StatusCode(500, "An error occurred while deleting the room.");
         }
+
+
+        [HttpGet("room/available")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAvailableRooms()
+        {
+
+
+            var availabe = await _clsExternalLayerRepo.GetAvailableRooms();
+
+            if (availabe == null)
+                return NotFound("Rooms are not found.");
+
+            return Ok(availabe);
+        }
+        
+
+
+
 
         // ================================
         //         Financial / Income Section

@@ -1,5 +1,8 @@
 using System.Data;
 using DormAPI.DTOs;
+using DormAPI.Database.EF.Contexts;
+using DormAPI.Database.EF.Scaffolding;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 
 namespace DormAPI.Database.Ado.Repositories
@@ -7,10 +10,12 @@ namespace DormAPI.Database.Ado.Repositories
     public class EmployeeRepository
     {
         private readonly string _connectionString;
+        private readonly DormContext _context;
 
-        public EmployeeRepository(IConfiguration configuration)
+        public EmployeeRepository(IConfiguration configuration, DormContext context)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _context = context;
         }
 
         //------------------------------
@@ -439,6 +444,84 @@ namespace DormAPI.Database.Ado.Repositories
                 }
             }
             return leaveTypes;
+        }
+
+
+        // =============================== 
+        //     Employee Overview Section
+        // ===============================
+        public async Task<Dictionary<string, dynamic>> GetEmployeesStatisticsOverview()
+        {
+            var result = new Dictionary<string, dynamic>();
+
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+
+                List<Dictionary<string, dynamic>> listTypesOverview = new List<Dictionary<string, dynamic>>();
+
+                Dictionary<string, dynamic> overview = new Dictionary<string, dynamic>();
+                Dictionary<string, dynamic> statis = new Dictionary<string, dynamic>();
+
+                try
+                {
+                    await connection.OpenAsync();
+
+                    using (var command1 = new SqlCommand("usp_GetEmployeesOverview", connection))
+                    {
+                        command1.CommandType = CommandType.StoredProcedure;
+
+                        using (var reader = await command1.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    overview[reader.GetName(i)] = reader.GetValue(i);
+                                }
+
+                            }
+                            result["Overview"] = overview;
+                        }
+                    }
+
+                    using (var command2 = new SqlCommand("usp_GetEmployeesTypesOverview", connection))
+                    {
+                        command2.CommandType = CommandType.StoredProcedure;
+
+                        using (var reader = await command2.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                statis["TypeName"] = reader["TypeName"]?.ToString() ?? "";
+                                statis["Staff"] = reader["Staff"] ?? 0;
+                                listTypesOverview.Add(new Dictionary<string, dynamic>(statis));
+                            }
+
+                            result["EmployeesTypesOverview"] = listTypesOverview;
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetEmployeesStatisticsOverview: {ex.Message}");
+
+                }
+            }
+            return result;
+        }
+
+
+
+        // =============================
+        //      Employee EF Section
+        // =============================
+        public async Task<int> GetTotalEmployees()
+        {
+            int totalEmployees = await _context.Employees.CountAsync();
+
+            return totalEmployees;
         }
     }
 }

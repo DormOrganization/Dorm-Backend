@@ -3,6 +3,7 @@ using DormAPI.Database.EF.Contexts;
 using DormAPI.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace DormAPI.Controllers
 {
@@ -11,9 +12,9 @@ namespace DormAPI.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly EmployeeRepository _repository;
-        private readonly AppDbContext _dormDbContext;
+        private readonly DormContext _dormDbContext;
 
-        public EmployeeController(EmployeeRepository repository, AppDbContext context)
+        public EmployeeController(EmployeeRepository repository, DormContext context)
         {
             _repository = repository;
             _dormDbContext = context;
@@ -24,7 +25,15 @@ namespace DormAPI.Controllers
         {
             try
             {
-                var response = await _repository.GetEmployeesAsync(page, pageSize);
+
+                //var response = await _repository.GetEmployeesAsync(page, pageSize);
+
+                var query = _dormDbContext.ViewEmployees
+                    .AsNoTracking()
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize);
+
+                var response = query.ToList();
                 return Ok(response);
             }
             catch (Exception ex)
@@ -61,7 +70,13 @@ namespace DormAPI.Controllers
         {
             try
             {
-                var response = await _repository.GetEmployeeTypesAsync();
+                //var response = await _repository.GetEmployeeTypesAsync();
+                var response = await _dormDbContext.EmployeeTypes.Select(et => new
+                {
+                    et.TypeId,
+                    et.TypeName,
+                    et.Description
+                }).ToListAsync();
                 return Ok(response);
             }
             catch (Exception ex)
@@ -92,7 +107,11 @@ namespace DormAPI.Controllers
         {
             try
             {
-                var response = await _repository.GetActiveEmployeeContractByIdAsync(employeeId);
+                // var response = await _repository.GetActiveEmployeeContractByIdAsync(employeeId);
+                var response = await _dormDbContext.ViewEmployeesContracts
+                    .AsNoTracking()
+                    .Where(ve => ve.EndDate >= DateOnly.FromDateTime(DateTime.Now) && ve.EmployeeId == employeeId)
+                    .FirstOrDefaultAsync();
                 if (response != null)
                 {
                     return Ok(response);
@@ -113,6 +132,7 @@ namespace DormAPI.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+
 
                 bool isSuccess = await _repository.AddEmployeeContractAsync(dto);
                 if (isSuccess)
@@ -164,7 +184,14 @@ namespace DormAPI.Controllers
         {
             try
             {
-                var response = await _repository.GetShiftsAsync();
+                var response = await _dormDbContext.Shifts
+                    .AsNoTracking()
+                    .Select(s => new
+                    {
+                        s.ShiftId,
+                        s.ShiftName
+
+                    }).ToListAsync();
                 return Ok(response);
             }
             catch (Exception ex)
@@ -175,7 +202,11 @@ namespace DormAPI.Controllers
         [HttpGet("get/leaves/{employeeId}")]
         public async Task<IActionResult> GetEmployeeLeaves(int employeeId)
         {
-            var leaves = await _repository.GetEmployeeLeavesAsync(employeeId);
+            //var leaves = await _repository.GetEmployeeLeavesAsync(employeeId);
+            var leaves = await _dormDbContext.ViewEmployeeLeaves
+                .AsNoTracking()
+                .Where(el => el.EmployeeId == employeeId)
+                .ToListAsync();
             return Ok(leaves);
         }
 
@@ -190,11 +221,103 @@ namespace DormAPI.Controllers
             return BadRequest("Failed to add leave.");
         }
 
-        [HttpGet("get/all/leavetypes")]
+
+        [HttpPut("refuse/leave/{leaveId}")]
+        public async Task<IActionResult> RefuseLeave(int leaveId)
+        {
+            var leave = await _dormDbContext.EmployeeLeaves.Where(el => el.LeaveId == leaveId && el.StatusId == 1).FirstOrDefaultAsync();
+            if (leave == null)
+                {
+                return NotFound(new { message = "Leave not found." });
+            }
+
+            leave.StatusId = 3; // Assuming 3 is the status ID for "refused"
+
+            _dormDbContext.EmployeeLeaves.Update(leave);
+
+            if (await _dormDbContext.SaveChangesAsync() > 0)
+            {
+                return Ok(new { message = "Leave refused successfully." });
+            }
+            return NotFound(new { message = "Leave not found or could not be refused." });
+        }
+
+        [HttpPut("accept/leave/{leaveId}")]
+        public async Task<IActionResult> AcceptLeave(int leaveId)
+        {
+            var leave = await _dormDbContext.EmployeeLeaves.Where(el => el.LeaveId == leaveId && el.StatusId == 1).FirstOrDefaultAsync();
+            if (leave == null)
+            {
+                return NotFound(new { message = "Leave not found." });
+            }
+
+            leave.StatusId = 2; //  2 is the status ID for "Approved"
+
+            _dormDbContext.EmployeeLeaves.Update(leave);
+
+            if (await _dormDbContext.SaveChangesAsync() > 0)
+            {
+                return Ok(new { message = "Leave Approved successfully." });
+            }
+            return NotFound(new { message = "Leave not found or could not be refused." });
+        }
+
+        [HttpGet("get/leave/types")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetLeaveTypes()
         {
-            var types = await _repository.GetLeaveTypesAsync();
-            return Ok(types);
+            var leaveTypes = await _dormDbContext
+                .LeaveTypes
+                .AsNoTracking()
+                .Select(lt => new
+            {
+                lt.LeaveTypeId,
+                lt.LeaveTypeName,
+            }).ToListAsync();
+
+            if(leaveTypes == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "No leave types found.");
+            }
+
+            return Ok(leaveTypes);
         }
+
+        [HttpGet("get/status/types")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetStatusTypes()
+        {
+            var statusTypes = await _dormDbContext
+                .StatusTypes
+                .AsNoTracking()
+                .Select(st => new
+                {
+                    st.StatusTypeId,
+                    st.StatusTypeName,
+                }).ToListAsync();
+
+            if (statusTypes == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "No status types found.");
+            }
+
+            return Ok(statusTypes);
+        }
+
+
+        [HttpGet("get/employees/statistics/overview")]
+        public async Task<IActionResult> GetEmployeesStatisticsOverview()
+        {
+
+            var data = await _repository.GetEmployeesStatisticsOverview();
+
+            if (data == null)
+            {
+                return NotFound(new { message = "No statistics data found." });
+            }
+
+            return Ok(data);
+        }
+
     }
 }
